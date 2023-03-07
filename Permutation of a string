@@ -1,0 +1,34 @@
+vector<string>v;
+	void helper(unordered_map<char,int>m,int cs,int ts,vector<char>&ans,string s){
+	    if(cs==ts){
+	        string temp="";
+	        for(auto i:ans)temp+=i;
+	        v.push_back(temp);
+	    }
+	    
+	    
+	    char ch=s[cs];
+	    int lo=m[ch];
+	    for(int i=lo+1;i<ts;i++){
+	        if(ans[i]=='1'){
+	            ans[i]=ch;
+	            m[ch]=i;
+	            helper(m,cs+1,ts,ans,s);
+	            ans[i]='1';
+	            m[ch]=lo;
+	        }
+	    }
+	}
+		vector<string>find_permutation(string S)
+		{
+		    // Code here there
+		    v.clear();
+		    unordered_map<char,int>m;
+		    for(auto i:S){
+		        m[i]=-1;
+		    }
+		    	vector<char>ans(S.size(),'1');
+		    helper(m,0,S.size(),ans,S);
+		    sort(v.begin(),v.end());
+		    return v;
+		}
